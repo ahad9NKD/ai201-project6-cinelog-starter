@@ -8,8 +8,8 @@
 **How I verified:** Ran a project-wide search for `save_to_watchlist` and `add_to_watchlist` with `rg -n "save_to_watchlist|add_to_watchlist" -S .` to confirm there were no missed references.
 
 ## Comment 2 — Deduplication
-**What I did:**
-**How I verified:**
+**What I did:** Added `AlreadyInWatchlistError` and a duplicate lookup in `add_to_watchlist()` that checks for an existing `(user_id, film_id)` row before inserting, mirroring `add_to_collection()`. I also taught the watchlist route to return `409 Conflict` for duplicates.
+**How I verified:** Compared the new guard to the `existing = CollectionEntry.query.filter_by(...)` pattern in `services/collection_service.py` and confirmed the route now turns that conflict into a JSON error response instead of creating duplicate rows.
 
 ## Comment 3 — Missing test
 **What I did:**
