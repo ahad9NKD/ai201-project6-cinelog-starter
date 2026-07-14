@@ -26,9 +26,9 @@
 **Engagement with reviewer's point:**
 
 ## Comment 6 — Rebase
-**What conflicted:**
-**How I resolved it:**
-**How I verified no conflict remains:**
+**What conflicted:** The rebase surfaced a `.gitignore` add/add conflict because `main` already ignored `.pytest_cache/`, and once the branch was replayed on top of the UUID refactor, the watchlist service also needed the `WatchlistEntry` model restored against `Film.id` as a UUID.
+**How I resolved it:** I merged the `.gitignore` entries, then re-added `WatchlistEntry` to `models.py` with UUID foreign keys so `services/watchlist_service.py` could import it successfully on top of the rebased `main`.
+**How I verified no conflict remains:** I checked the rebased file contents directly, confirmed `models.py` defines `WatchlistEntry` again, and reran the test suite so the watchlist import path and UUID-based model relationships were exercised end to end.
 
 ## PR Description
 <!-- Written at the end — feature overview, design decisions, manual testing steps -->
