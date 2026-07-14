@@ -12,8 +12,8 @@
 **How I verified:** Compared the new guard to the `existing = CollectionEntry.query.filter_by(...)` pattern in `services/collection_service.py` and confirmed the route now turns that conflict into a JSON error response instead of creating duplicate rows.
 
 ## Comment 3 — Missing test
-**What I did:**
-**How I verified:**
+**What I did:** Added `tests/test_watchlist.py` with `test_add_to_watchlist_nonexistent_film_raises`, modeled after `test_add_to_collection_nonexistent_film_raises` in `tests/test_collection.py` and using the same fixture style.
+**How I verified:** Used the collection test as the template for the fixture setup, exception assertion, and fake-film-ID pattern, then ran the watchlist test directly with `pytest tests/test_watchlist.py -v`.
 
 ## Comment 4 — Default visibility
 **My position:**
